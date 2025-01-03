@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axis and Allies Budget Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Axis and Allies Budget Calculator</h1>
+    <label for="infantry">Number of Infantry:</label>
+    <input type="number" id="infantry" value="0">
+    
+    <label for="tanks">Number of Tanks:</label>
+    <input type="number" id="tanks" value="0">
+    
+    <label for="aircraft">Number of Aircraft:</label>
+    <input type="number" id="aircraft" value="0">
+    
+    <button onclick="calculateBudget()">Calculate Budget</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateBudget() {
+        const infantryCost = 3; // Example cost
+        const tankCost = 5; // Example cost
+        const aircraftCost = 10; // Example cost
+
+        const infantryCount = parseInt(document.getElementById('infantry').value) || 0;
+        const tankCount = parseInt(document.getElementById('tanks').value) || 0;
+        const aircraftCount = parseInt(document.getElementById('aircraft').value) || 0;
+
+        const totalCost = (infantryCount * infantryCost) + 
+                          (tankCount * tankCost) + 
+                          (aircraftCount * aircraftCost);
+
+        document.getElementById('result').innerText = `Total Budget: ${totalCost} IPCs`;
+    }
+</script>
+
+</body>
+</html>
