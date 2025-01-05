@@ -42,8 +42,19 @@ function findCombinations(items, costs, max_cost)
 	return combinations
 end
 
-items = { "Infantry", "Artillery", "Tank", "Fighter", "Bomber" }
-costs = { 3, 4, 6, 10, 12 }
+items = {
+	"Infantry",
+	"Artillery",
+	"Tank",
+	"Fighter",
+	"Bomber",
+	"Transport",
+	"Destroyer",
+	"Cruiser",
+	"Aircraft Carrier",
+	"Battleship",
+}
+costs = { 3, 4, 6, 10, 12, 6, 7, 8, 12, 14, 20 }
 max_cost = 42
 
 combinations = findCombinations(items, costs, max_cost)

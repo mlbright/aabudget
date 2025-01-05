@@ -32,8 +32,20 @@ def find_combinations(items, costs, max_cost):
 
 
 # Example usage
-items = ["Infantry", "Artillery", "Tank", "Fighter", "Bomber"]
-costs = [3, 4, 6, 10, 12]
+items = [
+    "Infantry",
+    "Artillery",
+    "Tank",
+    "Fighter",
+    "Bomber",
+    "Submarine",
+    "Transport",
+    "Destroyer",
+    "Cruiser",
+    "Aircraft Carrier",
+    "Battleship",
+]
+costs = [3, 4, 6, 10, 12, 6, 7, 8, 12, 14, 20]
 max_cost = 42
 
 combinations = find_combinations(items, costs, max_cost)
@@ -41,4 +53,5 @@ combinations = find_combinations(items, costs, max_cost)
 from collections import Counter
 
 for combo, cost in combinations:
+    # print(f"Items: {combo}, Cost: {cost}")
     print(f"Items: {Counter(combo)}, Cost: {cost}")
