@@ -11,7 +11,7 @@ Reminded myself about [backtracking algorithms](https://www.geeksforgeeks.org/ba
 
 Learned a little bit of Lua.
 
-Note that the Python script, while slower that the lua script, will output the results in a more readable format without duplicate combinations.
+Note that the Python script, while slower than the lua script, will output the results in a more readable format.
 
 ## Usage
 
