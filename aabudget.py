@@ -1,59 +1,62 @@
-def find_combinations(items, costs, max_cost):
+from collections import Counter
 
-    results = []
-    temp = []
 
-    def search(i, budget):
-        if budget <= 0:
-            return
-
-        results.append(temp[:])
-
-        if i == len(items):
-            return
-
-        temp.append(items[i])
-        search(i, budget - costs[i])
-        temp.pop()
-
-        # Exclude the current item
-        # search(i + 1, budget)
-
-    def backtrack(current_combination, current_cost):
+def find_results(items, costs, budget):
+    def backtrack(current_combination, current_cost, idx):
         if current_cost <= 0:
             return
 
-        # If the current combination is valid, copy it to the list of combinations
+        # If the current combination is valid, copy it to the list of results
         if current_combination:
-            combinations.append(current_combination[:])
+            results.append(current_combination[:])
 
         # Try adding each type of item starting from the current position
-        for i in range(len(items)):
+        for i in range(idx, len(items)):
             item = items[i]
             cost = costs[i]
 
-            current_combination.append(item)
-            current_cost -= cost
+            max_number_item = current_cost // cost
 
-            # Recurse with the updated combination and cost
-            backtrack(current_combination, current_cost)
+            for j in range(1, max_number_item + 1):
+                current_combination.extend([item] * j)
+                current_cost -= cost * j
 
-            # Backtrack: remove the last item added
-            current_combination.pop()
-            current_cost += cost
+                # Recurse with the updated combination and cost
+                backtrack(current_combination, current_cost, i + 1)
+
+                # Backtrack: remove the last item added
+                for _ in range(j):
+                    current_combination.pop()
+                    current_cost += cost
+
+            # current_combination.append(item)
+            # current_cost -= cost
+
+            # # Recurse with the updated combination and cost
+            # backtrack(current_combination, current_cost, idx + 1)
+
+            # # Backtrack: remove the last item added
+            # current_combination.pop()
+            # current_cost += cost
 
     # store all valid combinations
-    combinations = []
+    results = []
 
     # Start the backtracking process
-    # backtrack([], max_cost)
-    search(0, max_cost)
+    backtrack([], budget, 0)
 
-    # return combinations
     return results
 
 
-# Example usage
+def print_combination(c: Counter):
+    counts = []
+    cost = 0
+    for k in sorted(c.keys()):
+        counts.append(f"{k}: {c[k]}")
+        cost += c[k] * costs[items.index(k)]
+    print(", ".join(counts), f"=> cost: {cost}")
+
+
 items = [
     "Infantry",
     "Artillery",
@@ -65,15 +68,14 @@ items = [
     "Destroyer",
     "Cruiser",
     "Aircraft Carrier",
+    "Industrial Complex",
     "Battleship",
 ]
-costs = [3, 4, 6, 10, 12, 6, 7, 8, 12, 14, 20]
-max_cost = 42
+costs = [3, 4, 6, 10, 12, 6, 7, 8, 12, 14, 15, 20]
+budget = 42
 
-combinations = find_combinations(items, costs, max_cost)
+results = find_results(items, costs, budget)
 
-from collections import Counter
-
-for combo in combinations:
+for combo in results:
     # print(f"Items: {combo}, Cost: {cost}")
-    print(f"Items: {Counter(combo)}")
+    print_combination(Counter(combo))
