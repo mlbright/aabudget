@@ -26,6 +26,5 @@ luajit aabudget.lua
 ## Timing/Benchmarking
 
 ```bash
-time luajit aabudget.lua > /dev/null
-time python3 aabudget.py > /dev/null
+hyperfine ./aabudget.py
 ```
