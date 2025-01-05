@@ -1,4 +1,24 @@
 def find_combinations(items, costs, max_cost):
+
+    results = []
+    temp = []
+
+    def search(i, budget):
+        if budget <= 0:
+            return
+
+        results.append(temp[:])
+
+        if i == len(items):
+            return
+
+        temp.append(items[i])
+        search(i, budget - costs[i])
+        temp.pop()
+
+        # Exclude the current item
+        # search(i + 1, budget)
+
     def backtrack(current_combination, current_cost):
         if current_cost <= 0:
             return
@@ -26,9 +46,11 @@ def find_combinations(items, costs, max_cost):
     combinations = []
 
     # Start the backtracking process
-    backtrack([], max_cost)
+    # backtrack([], max_cost)
+    search(0, max_cost)
 
-    return combinations
+    # return combinations
+    return results
 
 
 # Example usage
