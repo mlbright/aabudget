@@ -80,9 +80,9 @@ for idx, i in ipairs(items) do
 end
 
 costs = { 3, 4, 5, 6, 10, 12, 6, 7, 8, 12, 14, 15, 20 }
-max_cost = 42
+budget = 42
 
-combinations = findResults(items, costs, max_cost)
+combinations = findResults(items, costs, budget)
 
 for _, combination in ipairs(combinations) do
 	count = {}
