@@ -11,7 +11,7 @@ Reminded myself about [backtracking algorithms](https://www.geeksforgeeks.org/ba
 
 Learned a little bit of Lua.
 
-Note that the Python script, while slower than the lua script, will output the results in a more readable format.
+The Lua script is faster than the Python script: interesting.
 
 ## Usage
 
@@ -26,5 +26,13 @@ luajit aabudget.lua
 ## Timing/Benchmarking
 
 ```bash
-hyperfine ./aabudget.py
+hyperfine --warmup 1 ./aabudget.py
 ```
+
+```bash
+hyperfine --warmup 1 luatest.sh
+```
+
+## TODO
+
+- [ ] Add a GUI as a GitHub Pages site: convert to JavaScript/HTML/CSS and dynamically update the page as the user types in the budget and clicks the units that they intend to buy.
