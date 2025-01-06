@@ -1,3 +1,11 @@
+function tablelength(T)
+	local count = 0
+	for _ in pairs(T) do
+		count = count + 1
+	end
+	return count
+end
+
 function shallowcopy(orig)
 	local orig_type = type(orig)
 	local copy
@@ -21,7 +29,7 @@ function findCombinations(items, costs, max_cost)
 		end
 
 		if #current_combination ~= 0 then
-			table.insert(combinations, { shallowcopy(current_combination), current_cost })
+			table.insert(combinations, shallowcopy(current_combination))
 		end
 
 		for i = 1, #items do
@@ -48,21 +56,42 @@ items = {
 	"Tank",
 	"Fighter",
 	"Bomber",
+	"Submarine",
 	"Transport",
 	"Destroyer",
 	"Cruiser",
 	"Aircraft Carrier",
+	"Industrial Complex",
 	"Battleship",
 }
-costs = { 3, 4, 6, 10, 12, 6, 7, 8, 12, 14, 20 }
+
+inverse_index = {}
+for idx, i in ipairs(items) do
+	inverse_index[i] = idx
+end
+
+costs = { 3, 4, 6, 10, 12, 6, 7, 8, 12, 14, 15, 20 }
 max_cost = 42
 
 combinations = findCombinations(items, costs, max_cost)
 
-for i, combination in ipairs(combinations) do
-	print("Combination " .. i .. ":")
-	for _, item in ipairs(combination[1]) do
-		print("  " .. item)
+for _, combination in ipairs(combinations) do
+	count = {}
+	for _, item in ipairs(combination) do
+		count[item] = (count[item] or 0) + 1
 	end
-	print("  Cost: " .. combination[2])
+	cost = 0
+	i = 1
+	count_length = tablelength(count)
+	table.sort(count)
+	for item, c in pairs(count) do
+		io.write(item .. ": " .. c)
+		cost = cost + c * costs[inverse_index[item]]
+		if i ~= count_length then
+			io.write(", ")
+		end
+		i = i + 1
+	end
+	io.write(" => cost: " .. cost)
+	print()
 end
