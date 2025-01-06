@@ -20,7 +20,7 @@ function shallowcopy(orig)
 	return copy
 end
 
-function findCombinations(items, costs, max_cost)
+function findResults(items, costs, max_cost)
 	local combinations = {}
 
 	function backtrack(current_combination, current_cost)
@@ -73,7 +73,7 @@ end
 costs = { 3, 4, 6, 10, 12, 6, 7, 8, 12, 14, 15, 20 }
 max_cost = 42
 
-combinations = findCombinations(items, costs, max_cost)
+combinations = findResults(items, costs, max_cost)
 
 for _, combination in ipairs(combinations) do
 	count = {}

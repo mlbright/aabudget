@@ -6,7 +6,7 @@ from collections import Counter
 
 def find_results(items, costs, budget):
     def backtrack(current_combination, current_cost, idx):
-        if current_cost <= 0:
+        if current_cost < 0:
             return
 
         # If the current combination is valid, copy it to the list of results
