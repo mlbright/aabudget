@@ -30,7 +30,9 @@ def find_results(items, costs, budget):
 
                 # Backtrack: remove the last item added
                 # current_combination = current_combination[:-num_added_units] # this doesn't work?
-                del current_combination[-2:]
+                # del current_combination[-2:]
+                for _ in range(num_added_units):
+                    current_combination.pop()
                 current_cost += cost * num_added_units
 
     # store all valid combinations
