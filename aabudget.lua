@@ -20,39 +20,48 @@ function shallowcopy(orig)
 	return copy
 end
 
-function findResults(items, costs, max_cost)
-	local combinations = {}
+function findResults(items, costs, budget)
+	local results = {}
 
-	function backtrack(current_combination, current_cost)
-		if current_cost > max_cost then
+	function backtrack(current_combination, current_cost, idx)
+		if current_cost < 0 then
 			return
 		end
 
 		if #current_combination ~= 0 then
-			table.insert(combinations, shallowcopy(current_combination))
+			table.insert(results, shallowcopy(current_combination))
 		end
 
-		for i = 1, #items do
+		for i = idx, #items do
 			local item = items[i]
 			local cost = costs[i]
 
-			table.insert(current_combination, item)
-			current_cost = current_cost + cost
+			max_number_items = math.floor(current_cost / cost)
 
-			backtrack(current_combination, current_cost)
+			for j = 1, max_number_items do
+				for k = 1, j do
+					table.insert(current_combination, item)
+					current_cost = current_cost - cost
+				end
 
-			table.remove(current_combination)
-			current_cost = current_cost - cost
+				backtrack(current_combination, current_cost, i + 1)
+
+				for k = 1, j do
+					table.remove(current_combination)
+					current_cost = current_cost + cost
+				end
+			end
 		end
 	end
 
-	backtrack({}, 0)
-	return combinations
+	backtrack({}, budget, 1)
+	return results
 end
 
 items = {
 	"Infantry",
 	"Artillery",
+	"Anti-Aircraft Gun",
 	"Tank",
 	"Fighter",
 	"Bomber",
@@ -70,7 +79,7 @@ for idx, i in ipairs(items) do
 	inverse_index[i] = idx
 end
 
-costs = { 3, 4, 6, 10, 12, 6, 7, 8, 12, 14, 15, 20 }
+costs = { 3, 4, 5, 6, 10, 12, 6, 7, 8, 12, 14, 15, 20 }
 max_cost = 42
 
 combinations = findResults(items, costs, max_cost)
@@ -82,8 +91,8 @@ for _, combination in ipairs(combinations) do
 	end
 	cost = 0
 	i = 1
-	count_length = tablelength(count)
 	table.sort(count)
+	count_length = tablelength(count)
 	for item, c in pairs(count) do
 		io.write(item .. ": " .. c)
 		cost = cost + c * costs[inverse_index[item]]

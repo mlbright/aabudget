@@ -22,7 +22,9 @@ def find_results(items, costs, budget):
 
             for j in range(max_number_item):
                 num_added_units = j + 1
-                current_combination.extend([item] * num_added_units)
+                for _ in range(num_added_units):
+                    # Add the item to the current combination
+                    current_combination.append(item)
                 current_cost -= cost * num_added_units
 
                 # Recurse with the updated combination and cost
@@ -56,6 +58,7 @@ def print_combination(c: Counter):
 items = [
     "Infantry",
     "Artillery",
+    "Anti-Aircraft Gun",
     "Tank",
     "Fighter",
     "Bomber",
@@ -67,7 +70,7 @@ items = [
     "Industrial Complex",
     "Battleship",
 ]
-costs = [3, 4, 6, 10, 12, 6, 7, 8, 12, 14, 15, 20]
+costs = [3, 4, 5, 6, 10, 12, 6, 7, 8, 12, 14, 15, 20]
 budget = 42
 
 results = find_results(items, costs, budget)
