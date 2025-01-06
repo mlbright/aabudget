@@ -29,6 +29,7 @@ def find_results(items, costs, budget):
                 backtrack(current_combination, current_cost, i + 1)
 
                 # Backtrack: remove the last item added
+                # current_combination = current_combination[:-num_added_units] # this doesn't work?
                 del current_combination[-2:]
                 current_cost += cost * num_added_units
 
