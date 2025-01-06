@@ -20,27 +20,17 @@ def find_results(items, costs, budget):
 
             max_number_item = current_cost // cost
 
-            for j in range(1, max_number_item + 1):
-                current_combination.extend([item] * j)
-                current_cost -= cost * j
+            for j in range(max_number_item):
+                num_added_units = j + 1
+                current_combination.extend([item] * num_added_units)
+                current_cost -= cost * num_added_units
 
                 # Recurse with the updated combination and cost
                 backtrack(current_combination, current_cost, i + 1)
 
                 # Backtrack: remove the last item added
-                for _ in range(j):
-                    current_combination.pop()
-                    current_cost += cost
-
-            # current_combination.append(item)
-            # current_cost -= cost
-
-            # # Recurse with the updated combination and cost
-            # backtrack(current_combination, current_cost, idx + 1)
-
-            # # Backtrack: remove the last item added
-            # current_combination.pop()
-            # current_cost += cost
+                del current_combination[-2:]
+                current_cost += cost * num_added_units
 
     # store all valid combinations
     results = []
