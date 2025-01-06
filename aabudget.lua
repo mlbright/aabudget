@@ -89,13 +89,17 @@ for _, combination in ipairs(combinations) do
 	for _, item in ipairs(combination) do
 		count[item] = (count[item] or 0) + 1
 	end
+	tkeys = {}
+	for k in pairs(count) do
+		table.insert(tkeys, k)
+	end
+	table.sort(tkeys)
 	cost = 0
 	i = 1
-	table.sort(count)
 	count_length = tablelength(count)
-	for item, c in pairs(count) do
-		io.write(item .. ": " .. c)
-		cost = cost + c * costs[inverse_index[item]]
+	for _, k in ipairs(tkeys) do
+		io.write(k .. ": " .. count[k])
+		cost = cost + count[k] * costs[inverse_index[k]]
 		if i ~= count_length then
 			io.write(", ")
 		end
